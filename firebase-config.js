@@ -3,12 +3,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCCObH9haO398z9VNke9MZPgszEuIWUiVg",
-  authDomain: "myrecipes-c398f.firebaseapp.com",
-  projectId: "myrecipes-c398f",
-  storageBucket: "myrecipes-c398f.firebasestorage.app",
-  messagingSenderId: "258073201678",
-  appId: "1:258073201678:web:282acc6740e0a701cb405f"
+  apiKey: "AIzaSyAKhWMcAGum0RR2DLvG_2K18LxquqnItNo",
+  authDomain: "recipesfree-96b06.firebaseapp.com",
+  projectId: "recipesfree-96b06",
+  storageBucket: "recipesfree-96b06.firebasestorage.app",
+  messagingSenderId: "726326313880",
+  appId: "1:726326313880:web:96fe17e3a4808e57ffe1ed"
 };
 
 const app = initializeApp(firebaseConfig);
