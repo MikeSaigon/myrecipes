@@ -1,0 +1,11 @@
+[25-Nov-2025 16:22:41 UTC] Global Error: Method not allowed
+#0 {main}
+[25-Nov-2025 16:24:15 UTC] Global Error: SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'servings' at row 1
+#0 /Applications/MAMP/htdocs/myrecipes/api/add_recipe.php(38): PDOStatement->execute(Array)
+#1 {main}
+[25-Nov-2025 22:04:54 UTC] PHP Warning:  Undefined array key "prep_time" in /Applications/MAMP/htdocs/myrecipes/api/add_recipe.php on line 41
+[25-Nov-2025 22:04:54 UTC] PHP Warning:  Undefined array key "cook_time" in /Applications/MAMP/htdocs/myrecipes/api/add_recipe.php on line 42
+[25-Nov-2025 22:04:54 UTC] PHP Warning:  Undefined array key "difficulty" in /Applications/MAMP/htdocs/myrecipes/api/add_recipe.php on line 44
+[25-Nov-2025 22:05:00 UTC] PHP Warning:  Undefined array key "prep_time" in /Applications/MAMP/htdocs/myrecipes/api/update_recipe.php on line 53
+[25-Nov-2025 22:05:00 UTC] PHP Warning:  Undefined array key "cook_time" in /Applications/MAMP/htdocs/myrecipes/api/update_recipe.php on line 54
+[25-Nov-2025 22:05:00 UTC] PHP Warning:  Undefined array key "difficulty" in /Applications/MAMP/htdocs/myrecipes/api/update_recipe.php on line 56

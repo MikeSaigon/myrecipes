@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angie's Recipes | Culinary Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="main-header">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>Angie's Recipes</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="/" class="nav-btn"
+                    style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><i
+                        class="fas fa-home"></i>&nbsp;Home</a>
+                <button class="nav-btn active" data-filter="all">All Recipes</button>
+                <button class="nav-btn" data-filter="breakfast">Breakfast</button>
+                <button class="nav-btn" data-filter="main">Mains</button>
+                <button class="nav-btn" data-filter="dessert">Desserts</button>
+            </nav>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for a dish...">
+            </div>
+            <button id="add-recipe-btn" class="btn-primary"><i class="fas fa-plus"></i> Add Recipe</button>
+        </header>
+
+        <main class="content-area">
+            <div class="hero-section">
+                <h2>Discover the Art of Cooking</h2>
+                <p>Curated recipes for the modern chef.</p>
+            </div>
+
+            <div id="recipe-grid" class="recipe-grid">
+                <!-- Recipes will be injected here -->
+            </div>
+        </main>
+
+        <!-- Recipe Modal -->
+        <div id="recipe-modal" class="modal hidden">
+            <div class="modal-content">
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+                <div class="modal-body" id="modal-body">
+                    <!-- Recipe details injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button id="edit-recipe-btn" class="btn-secondary"><i class="fas fa-edit"></i> Edit Recipe</button>
+                    <button id="delete-recipe-btn" class="btn-danger"><i class="fas fa-trash"></i> Delete
+                        Recipe</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Recipe Modal -->
+        <div id="add-recipe-modal" class="modal hidden">
+            <div class="modal-content form-modal">
+                <button class="close-modal close-add-modal"><i class="fas fa-times"></i></button>
+                <div class="modal-header">
+                    <h2>Add New Recipe</h2>
+                </div>
+                <div class="modal-body">
+                    <form id="add-recipe-form">
+                        <div class="form-group">
+                            <label>Recipe Title</label>
+                            <input type="text" name="title" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Recipe Image</label>
+                            <input type="file" name="image" class="form-input" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-input" rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Prep Time</label>
+                                <input type="text" name="prep_time" class="form-input" placeholder="e.g. 30 mins">
+                            </div>
+                            <div class="form-group">
+                                <label>Cook Time</label>
+                                <input type="text" name="cook_time" class="form-input" placeholder="e.g. 1 hour">
+                            </div>
+                            <div class="form-group">
+                                <label>Servings</label>
+                                <input type="number" name="servings" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Difficulty</label>
+                                <select name="difficulty" class="form-input">
+                                    <option value="Easy">Easy</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Hard">Hard</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Ingredients</h3>
+                            <div id="ingredients-container">
+                                <div class="ingredient-row">
+                                    <input type="text" name="ing_amount[]" placeholder="Amount"
+                                        class="form-input small">
+                                    <input type="text" name="ing_measure[]" placeholder="Unit" class="form-input small">
+                                    <input type="text" name="ing_name[]" placeholder="Ingredient Name"
+                                        class="form-input" required>
+                                </div>
+                            </div>
+                            <button type="button" id="add-ingredient-btn" class="btn-secondary small">+ Add
+                                Ingredient</button>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Instructions</h3>
+                            <div id="instructions-container">
+                                <div class="instruction-row">
+                                    <textarea name="instructions[]" placeholder="Step description..." class="form-input"
+                                        required></textarea>
+                                </div>
+                            </div>
+                            <button type="button" id="add-instruction-btn" class="btn-secondary small">+ Add
+                                Step</button>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary large">Save Recipe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
