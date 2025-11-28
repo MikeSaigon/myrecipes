@@ -1,5 +1,5 @@
 import { db, storage } from './firebase-config.js';
-import { collection, addDoc, getDocs, doc, getDoc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { collection, addDoc, getDocs, doc, getDoc, deleteDoc, updateDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const app = {
@@ -81,23 +81,26 @@ const app = {
         });
     },
 
-    async loadRecipes() {
+    loadRecipes() {
         try {
             const q = query(collection(db, "recipes"), orderBy("created_at", "desc"));
-            const querySnapshot = await getDocs(q);
-            const recipes = [];
-            querySnapshot.forEach((doc) => {
-                recipes.push({ id: doc.id, ...doc.data() });
+
+            onSnapshot(q, (querySnapshot) => {
+                const recipes = [];
+                querySnapshot.forEach((doc) => {
+                    recipes.push({ id: doc.id, ...doc.data() });
+                });
+                this.renderRecipeGrid(recipes);
+            }, (error) => {
+                console.error("Error in snapshot listener:", error);
+                if (error.code === 'failed-precondition') {
+                    console.warn("Firestore index might be missing. Check console for link.");
+                }
+                this.recipeGrid.innerHTML = '<p class="error-msg">Failed to load recipes. Please check your connection.</p>';
             });
-            this.renderRecipeGrid(recipes);
+
         } catch (error) {
-            console.error('Error loading recipes:', error);
-            // If the error is about missing index, we might need to create one, but for simple queries it should be fine.
-            // Or if the collection is empty.
-            if (error.code === 'failed-precondition') {
-                console.warn("Firestore index might be missing. Check console for link.");
-            }
-            this.recipeGrid.innerHTML = '<p class="error-msg">Failed to load recipes. Please check your connection.</p>';
+            console.error('Error setting up listener:', error);
         }
     },
 
@@ -345,26 +348,22 @@ const app = {
                 await uploadBytes(storageRef, imageFile);
                 const downloadURL = await getDownloadURL(storageRef);
                 recipeData.image_path = downloadURL;
-            } else if (!this.currentEditId) {
-                // Default image if new recipe and no image uploaded
-                // We can keep it empty or set a placeholder. The render function handles empty.
             }
 
             if (this.currentEditId) {
-                // Update existing
                 const recipeRef = doc(db, "recipes", this.currentEditId);
                 await updateDoc(recipeRef, recipeData);
                 alert('Recipe updated successfully!');
             } else {
-                // Add new
                 await addDoc(collection(db, "recipes"), recipeData);
                 alert('Recipe added successfully!');
             }
 
             this.addRecipeModal.classList.remove('active');
             this.addRecipeForm.reset();
-            this.loadRecipes();
             this.currentEditId = null;
+
+            // No need to call loadRecipes() manually as onSnapshot will handle it
 
         } catch (error) {
             console.error('Error saving recipe:', error);
